@@ -15,7 +15,8 @@ namespace JoobleTask
 				GetPathFromArgs(args);
 			
 			var writer = new FileManager(_sourcePath, _directPath);
-			writer.WriteSubWordsAsync();
+			writer.WriteSubWordsAsync().Wait();
+			Console.WriteLine("Complete!");
 		}
 
 		private static void SetPathManually()
@@ -43,7 +44,12 @@ namespace JoobleTask
 		{
 			if (args.Length < 2)
 				SetPathManually();
+			else
+				SetPathFromArgs(args);
+		}
 
+		private static void SetPathFromArgs(string[] args)
+		{
 			_sourcePath = args[0];
 			_directPath = args[1];
 		}
