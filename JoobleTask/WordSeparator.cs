@@ -4,15 +4,15 @@ using System.Linq;
 
 namespace JoobleTask
 {
-	public class WordParser
+	public class WordSeparator
 	{
 		private readonly string[] _dictionary;
 		private readonly string[] _words;
-		private string[][] _subWords;
+		private string[] _subWords;
 
-		public string[][] SubWords => _subWords;
+		public string[] SubWords => _subWords;
 
-		public WordParser(IEnumerable<string> dictionary, string[] words)
+		public WordSeparator(IEnumerable<string> dictionary, string[] words)
 		{
 			_dictionary = SortDictionary(dictionary);
 			_words = words ?? throw new ArgumentNullException(nameof(words));
@@ -25,7 +25,8 @@ namespace JoobleTask
 			if (dictionary is null)
 				throw new ArgumentNullException(nameof(dictionary));
 
-			return dictionary.OrderByDescending(w=>w.Length)
+			return dictionary.Where(w=>w.Length > 2)
+							.OrderByDescending(w=>w.Length)
 							.Select(w=>w.ToLower())
 							.ToArray();
 		}
@@ -34,6 +35,7 @@ namespace JoobleTask
 		{
 			_subWords = _words.Select(w => w.ToLower())
 							.Select(PickMatchedWords)
+							.Select(a=>string.Join(", ", a))
 							.ToArray();
 		}
 
@@ -49,8 +51,8 @@ namespace JoobleTask
 				subWords.Add(s);
 				word = word.Replace(s, string.Empty);
 			}
-
-			return subWords.ToArray();
+			
+			return subWords.Any() ? subWords.ToArray() : new[] {word};
 		}
 	}
 }
