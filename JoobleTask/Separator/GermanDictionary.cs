@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 
-namespace JoobleTask
+namespace JoobleTask.Separator
 {
 	public class GermanDictionary
 	{

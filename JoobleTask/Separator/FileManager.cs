@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 
-namespace JoobleTask
+namespace JoobleTask.Separator
 {
 	public class FileManager
 	{
@@ -20,7 +20,7 @@ namespace JoobleTask
 			var dictionary = GermanDictionary.GetInstance(@"D:\Projects\JoobleTask\Data\de-dictionary.tsv");
 			var words = await File.ReadAllLinesAsync(_sourcePath);
 			var wordParser = new WordSeparator(dictionary.Dictionary, words);
-			
+
 			await File.WriteAllLinesAsync(_directPath, wordParser.SubWords);
 		}
 	}

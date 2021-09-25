@@ -1,4 +1,5 @@
 using System.IO;
+using JoobleTask.Separator;
 using Xunit;
 
 namespace JoobleTask.Tests

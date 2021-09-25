@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace JoobleTask
+namespace JoobleTask.Separator
 {
 	public class WordSeparator
 	{
@@ -25,9 +25,9 @@ namespace JoobleTask
 			if (dictionary is null)
 				throw new ArgumentNullException(nameof(dictionary));
 
-			return dictionary.Where(w=>w.Length > 2)
-							.OrderByDescending(w=>w.Length)
-							.Select(w=>w.ToLower())
+			return dictionary.Where(w => w.Length > 2)
+							.OrderByDescending(w => w.Length)
+							.Select(w => w.ToLower())
 							.ToArray();
 		}
 
@@ -35,7 +35,7 @@ namespace JoobleTask
 		{
 			_subWords = _words.Select(w => w.ToLower())
 							.Select(PickMatchedWords)
-							.Select(a=>string.Join(", ", a))
+							.Select(a => string.Join(", ", a))
 							.ToArray();
 		}
 
@@ -51,7 +51,7 @@ namespace JoobleTask
 				subWords.Add(s);
 				word = word.Replace(s, string.Empty);
 			}
-			
+
 			return subWords.Any() ? subWords.ToArray() : new[] {word};
 		}
 	}
