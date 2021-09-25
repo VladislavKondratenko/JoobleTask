@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -11,12 +12,15 @@ namespace JoobleTask.Separator
 
 		private string[] _dictionary;
 
-		public string[] Dictionary => _dictionary;
+		public IEnumerable<string> Dictionary => _dictionary;
 
 		private GermanDictionary(string path)
 		{
 			if (path is null)
 				throw new ArgumentNullException(nameof(path));
+
+			if (File.Exists(path) is not true)
+				throw new FileNotFoundException(nameof(path));
 
 			SetDictionary(path).Wait();
 		}
