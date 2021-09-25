@@ -25,7 +25,9 @@ namespace JoobleTask.Separator
 			if (dictionary is null)
 				throw new ArgumentNullException(nameof(dictionary));
 
-			return dictionary.Where(w => w.Length > 2)
+			const int minLengthWord = 2;
+
+			return dictionary.Where(w => w.Length > minLengthWord)
 							.OrderByDescending(w => w.Length)
 							.Select(w => w.ToLower())
 							.ToArray();
