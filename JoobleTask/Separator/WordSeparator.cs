@@ -36,18 +36,18 @@ namespace JoobleTask.Separator
 		private void SplitWords()
 		{
 			_subWords = _words.Select(w => w.ToLower())
-							.Select(PickMatchedWords)
+							.Select(FindMatchedWords)
 							.Select(a => string.Join(", ", a))
 							.ToArray();
 		}
 
-		private string[] PickMatchedWords(string word)
+		private string[] FindMatchedWords(string word)
 		{
 			var subWords = new List<string>();
 
 			foreach (var s in _dictionary)
 			{
-				if (!word.Contains(s))
+				if (word.Contains(s) is not true)
 					continue;
 
 				subWords.Add(s);
