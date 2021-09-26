@@ -1,6 +1,6 @@
 ﻿using System;
 using JoobleTask;
-using JoobleTask.Separator;
+using JoobleTask.Core;
 
 var helper = new ProgramHelper(args);
 

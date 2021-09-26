@@ -1,5 +1,5 @@
 using System.IO;
-using JoobleTask.Separator;
+using JoobleTask.Core;
 using Xunit;
 
 namespace JoobleTask.Tests
@@ -10,7 +10,7 @@ namespace JoobleTask.Tests
 
 		public WordSeparatorTests()
 		{
-			_dictionary = File.ReadAllLinesAsync(@"D:\Projects\JoobleTask\Data\de-dictionary.tsv").Result;
+			_dictionary = File.ReadAllLinesAsync(Path.GetFullPath(@"../../../../Data/de-dictionary.tsv")).Result;
 		}
 
 		[Fact]

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace JoobleTask.Separator
+namespace JoobleTask.Core
 {
-	public class WordSeparator
+	internal class WordSeparator
 	{
 		private readonly string[] _dictionary;
 		private readonly string[] _words;

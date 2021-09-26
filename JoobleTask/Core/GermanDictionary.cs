@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace JoobleTask.Separator
+namespace JoobleTask.Core
 {
-	public class GermanDictionary
+	internal class GermanDictionary
 	{
 		private static string _path;
 		private static GermanDictionary _instance;
