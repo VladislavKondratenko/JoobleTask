@@ -6,22 +6,32 @@ namespace JoobleTask.Core
 {
 	public class FileManager
 	{
-		private readonly string _sourcePath;
-		private readonly string _directPath;
+		private readonly Task<WordSeparator> _separatorTask;
 
-		public FileManager(string sourcePath, string directPath)
+		public FileManager(string sourcePath)
 		{
-			_sourcePath = sourcePath ?? throw new ArgumentNullException(nameof(sourcePath));
-			_directPath = directPath ?? throw new ArgumentNullException(nameof(directPath));
+			if (sourcePath is null)
+				throw new ArgumentNullException(nameof(sourcePath));
+
+			_separatorTask = SetSeparatorAsync(sourcePath);
 		}
 
-		public async Task WriteSubWordsAsync()
+		public async Task WriteSubWordsAsync(string directPath)
+		{
+			if (directPath is null)
+				throw new ArgumentNullException(nameof(directPath));
+
+			var separator = await _separatorTask;
+
+			await File.WriteAllLinesAsync(directPath, separator.SubWords);
+		}
+
+		private static async Task<WordSeparator> SetSeparatorAsync(string sourcePath)
 		{
 			var dictionary = GermanDictionary.GetInstance(Path.GetFullPath(@"../../../../Data/de-dictionary.tsv"));
-			var words = await File.ReadAllLinesAsync(_sourcePath);
-			var wordParser = new WordSeparator(dictionary.Dictionary, words);
+			var words = await File.ReadAllLinesAsync(sourcePath);
 
-			await File.WriteAllLinesAsync(_directPath, wordParser.SubWords);
+			return new WordSeparator(dictionary.Dictionary, words);
 		}
 	}
 }
