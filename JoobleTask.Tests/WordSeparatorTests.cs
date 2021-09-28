@@ -57,5 +57,20 @@ namespace JoobleTask.Tests
 
 			Assert.Equal(expected, parser.SubWords);
 		}
+		
+		[Fact]
+		public void WordSeparator_Krankenasafasfasfasfasf_()
+		{
+			var word = "Krankenasafasfasfasfasf";
+
+			var expected = new[]
+			{
+				"krankenasafasfasfasfasf"
+			};
+
+			var parser = new WordSeparator(_dictionary, new[] {word});
+
+			Assert.Equal(expected, parser.SubWords);
+		}
 	}
 }

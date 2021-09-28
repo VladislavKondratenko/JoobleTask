@@ -25,10 +25,7 @@ namespace JoobleTask.Core
 			if (dictionary is null)
 				throw new ArgumentNullException(nameof(dictionary));
 
-			const int minLengthWord = 2;
-
-			return dictionary.Where(w => w.Length > minLengthWord)
-							.OrderByDescending(w => w.Length)
+			return dictionary.OrderByDescending(w => w.Length)
 							.Select(w => w.ToLower())
 							.ToArray();
 		}
@@ -43,6 +40,7 @@ namespace JoobleTask.Core
 
 		private string[] FindMatchedWords(string word)
 		{
+			var copy = word;
 			var subWords = new List<string>();
 
 			foreach (var s in _dictionary)
@@ -54,7 +52,10 @@ namespace JoobleTask.Core
 				word = word.Replace(s, string.Empty);
 			}
 
-			return subWords.Any() ? subWords.ToArray() : new[] {word};
+			if (word.Length > 0 || subWords.Any() is not true)
+				return new[] {copy};
+
+			return  subWords.ToArray();
 		}
 	}
 }
